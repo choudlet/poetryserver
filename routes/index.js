@@ -4,7 +4,7 @@ var fetch = require('node-fetch');
 var parseString = require('xml2js').parseString;
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    let word = req.params.word;
+    let word = req.query.word;
     fetch(`http://www.stands4.com/services/v2/poetry.php?uid=5425&tokenid=yz0jaxfwyLNjBzos&term=${word}`)
         .then(function(result) {
             return result.text();
@@ -12,10 +12,10 @@ router.get('/', function(req, res, next) {
         .then(function(body) {
             parseString(body, (err,info) => {
               console.log(info);
-              newpoems = info.results.result.filter(element=> {
-              return element.poem[0].length!=100;
+              let newpoems = info.results.result.filter(element=> {
+                return element.poem[0].length!=100;
               });
-              selectedPoem = newpoems[Math.floor(Math.random() * newpoems.length)];
+              let selectedPoem = newpoems[Math.floor(Math.random() * newpoems.length)];
               res.json(selectedPoem);
             });
         });
