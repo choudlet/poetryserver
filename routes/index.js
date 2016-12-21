@@ -4,9 +4,8 @@ var fetch = require('node-fetch');
 var parseString = require('xml2js').parseString;
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log('YES');
     let word = req.params.word;
-    fetch(`http://www.stands4.com/services/v2/poetry.php?uid=5425&tokenid=yz0jaxfwyLNjBzos&term=clowns`)
+    fetch(`http://www.stands4.com/services/v2/poetry.php?uid=5425&tokenid=yz0jaxfwyLNjBzos&term=${word}`)
         .then(function(result) {
             return result.text();
         })
